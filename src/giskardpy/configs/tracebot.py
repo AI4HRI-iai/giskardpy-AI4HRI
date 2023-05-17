@@ -5,8 +5,10 @@ from giskardpy.my_types import PrefixName
 
 class Tracebot(Giskard):
     def __init__(self):
-        super().__init__(root_link_name='tracy/world')
+        super().__init__(root_link_name='world')
         self.load_moveit_self_collision_matrix('package://giskardpy/config/iai_tracy.srdf')
+        # self.configure_DebugMarkerPublisher(enabled=True)
+        # self.configure_PlotDebugExpressions(enabled=True, wait=True)
 
 
 class TracebotMujoco(Tracebot):
@@ -19,7 +21,9 @@ class TracebotMujoco(Tracebot):
 
 class TracyReal(Tracebot):
     def __init__(self):
-        self.add_robot_from_parameter_server(joint_state_topics=['joint_states'], add_drive_joint_to_group=False)
+        self.add_robot_from_parameter_server(joint_state_topics=['joint_states'],
+                                             group_name='',
+                                             add_drive_joint_to_group=False)
         super().__init__()
         self.add_follow_joint_trajectory_server(
             namespace='/left_arm/scaled_pos_joint_traj_controller_left/follow_joint_trajectory',
