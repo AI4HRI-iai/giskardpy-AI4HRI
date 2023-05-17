@@ -52,6 +52,7 @@ from giskardpy.tree.behaviors.set_cmd import SetCmd
 from giskardpy.tree.behaviors.set_error_code import SetErrorCode
 from giskardpy.tree.behaviors.set_tracking_start_time import SetTrackingStartTime
 from giskardpy.tree.behaviors.setup_base_traj_constraints import SetDriveGoals
+from giskardpy.tree.behaviors.sleep import Sleeper
 from giskardpy.tree.behaviors.sync_configuration import SyncConfiguration
 from giskardpy.tree.behaviors.sync_odometry import SyncOdometry
 from giskardpy.tree.behaviors.sync_tf_frames import SyncTfFrames
@@ -639,6 +640,7 @@ class StandAlone(TreeManager):
         if self.god_map.get_data(identifier.MaxTrajectoryLength_enabled):
             kwargs = self.god_map.get_data(identifier.MaxTrajectoryLength)
             planning_4.add_child(MaxTrajectoryLength('traj length check', **kwargs))
+        # planning_4.add_child(Sleeper('sleeper'))
         return planning_4
 
     def grow_plan_postprocessing(self):
